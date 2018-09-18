@@ -2,6 +2,12 @@ const Proxy = artifacts.require('./Proxy.sol');
 const Controller = artifacts.require('./Controller.sol');
 const { assertRevert } = require('./helpers/assertThrow')
 
+//// [review] can not run npm run test:
+/* Error parsing /ilm-token/contracts/Delegatable.sol: ParsedContract.sol:28:31: ParserError: Expected token Semicolon got 'LParen'
+    emit DelegationTransferred(delegation, newDelegation);
+  but truffle compile is ok
+  mb truffle 4.0.6 -> 4.1.14
+*/
 contract('Proxy', (accounts) => {
   let proxy;
   let token;
@@ -16,6 +22,7 @@ contract('Proxy', (accounts) => {
   it('should be initializable through proxy', async () => {
     // initialize contract
     await token.initialize(controller.address, 400000000);
+    //// [review] mb 400000000 to const or to 4e9
     // check total supply
     let totalSupply = await token.totalSupply();
     assert.equal(totalSupply.toNumber(), 0);
@@ -106,5 +113,6 @@ contract('Proxy', (accounts) => {
     // initialize contract
     await token.initialize(controller.address, 200);
     assert.equal(await token.name(), 'ICO Malta');
+    //// [review] why it should be 'ICO Malta'? Test not pass
   });
 });

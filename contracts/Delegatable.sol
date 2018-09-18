@@ -8,6 +8,7 @@ contract Delegatable {
   address empty1; // unknown slot
   address empty2; // unknown slot
   address empty3;  // unknown slot
+  //// [review] what is unknown slot? why 3? 
   address public owner;  // matches owner slot in controller
   address public delegation; // matches thisAddr slot in controller
 

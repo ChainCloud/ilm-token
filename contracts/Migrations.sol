@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
 
+//// [review] why 0.4.18 and not 0.4.23 or 0.4.25?
 contract Migrations {
   address public owner;
   uint public last_completed_migration;

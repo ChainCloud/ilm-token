@@ -2,11 +2,13 @@
 pragma solidity ^0.4.23;
 
 import "zeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
+//// [review] no need in StandardToken
 import "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 import "zeppelin-solidity/contracts/token/ERC20/PausableToken.sol";
 
 contract Controller is MintableToken, PausableToken {
   address public thisAddr; // matches delegation slot in proxy
+  //// [review] thisAddr – not a best name
   uint256 public cap;      // the max cap of this token
   string public constant name = "COIN"; // solium-disable-line uppercase
   string public constant symbol = "COIN"; // solium-disable-line uppercase
@@ -21,6 +23,7 @@ contract Controller is MintableToken, PausableToken {
     require(cap == 0);
     require(_cap > 0);
     require(thisAddr == _controller);
+    //// [review] how to set thisAddr?
     cap = _cap;
     totalSupply_ = 0;
   }
@@ -31,6 +34,7 @@ contract Controller is MintableToken, PausableToken {
    * @param _amount The amount of tokens to mint.
    * @return A boolean that indicates if the operation was successful.
    */
+  //// [review] mb onlyOwner -> hasMintPermission ?
   function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
   	require(cap > 0);
     require(totalSupply_.add(_amount) <= cap);

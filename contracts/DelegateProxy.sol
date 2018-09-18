@@ -9,6 +9,7 @@ contract DelegateProxy {
     * @param _calldata Calldata for the delegatecall
     */
     function delegatedFwd(address _dst, bytes _calldata) internal {
+        //// [review] mb add some comments here?
         assembly {
             let result := delegatecall(sub(gas, 10000), _dst, add(_calldata, 0x20), mload(_calldata), 0, 0)
             let size := returndatasize

@@ -22,6 +22,7 @@ contract Proxy is Delegatable, DelegateProxy {
    * @param _cap Max amount of tokens that should be mintable
    */
   function initialize(address _controller, uint256 _cap) public {
+    //// [review] owner == address(0);
     require(owner == 0);
     owner = msg.sender;
     delegation = _controller;
